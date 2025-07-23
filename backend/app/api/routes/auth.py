@@ -1,10 +1,7 @@
-# File: backend/app/api/routes/auth.py
-
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-# Sekarang impor ini akan berfungsi dengan benar
 from app import database, models, schemas
 from app.crud import crud_user
 from app.utils import security
@@ -14,8 +11,7 @@ router = APIRouter(
     tags=["Authentication"]
 )
 
-# Pemanggilan schemas.Token sekarang valid
-@router.post("/token", response_model=schemas.Token)
+@router.post("/token", response_model=schemas.token.Token) # Pastikan Token diimpor dari schemas.token
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
     user = crud_user.get_user_by_username(db, username=form_data.username)
 
@@ -29,15 +25,20 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
     access_token_data = {
         "sub": user.username,
         "user_id": user.user_id,
-        "role_id": user.role_id
+        "role_id": user.role_id # Memastikan role_id disertakan
     }
     access_token = security.create_access_token(data=access_token_data)
 
-    # Pemanggilan schemas.User sekarang juga valid
-    user_response = schemas.User.from_orm(user)
+    user_response = schemas.users.User.from_orm(user) # Menggunakan schemas.users.User
 
     return {
         "access_token": access_token,
         "token_type": "bearer",
-        "user": user_response
+        "user": user_response # Mengembalikan objek user lengkap
     }
+
+# Endpoint untuk mendapatkan data user yang sedang login
+@router.get("/auth/me", response_model=schemas.users.User)
+async def read_users_me(current_user: models.User = Depends(security.get_current_user)):
+    """Mendapatkan data user yang sedang login."""
+    return current_user

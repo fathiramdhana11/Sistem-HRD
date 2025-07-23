@@ -1,30 +1,37 @@
-# File: backend/app/schemas/menu.py
-
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Optional, List
+from datetime import datetime
 
-# Skema dasar
 class MenuBase(BaseModel):
     menu_name: str
     route: Optional[str] = None
-    icon: Optional[str] = None
-    order_no: int
-    is_active: bool
     parent_menu_id: Optional[int] = None
+    icon: Optional[str] = None
+    order_no: Optional[int] = 0
+    is_active: Optional[bool] = True
 
 class MenuCreate(MenuBase):
     pass
 
-# Skema untuk dibaca dari database
 class Menu(MenuBase):
     menu_id: int
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+    created_by: Optional[int] = None
+    updated_by: Optional[int] = None
+    
+    # Untuk struktur pohon menu
+    children: List['Menu'] = [] 
 
     class Config:
         from_attributes = True
 
-# Skema ini bisa berisi submenu di dalamnya
-class MenuWithSubMenu(Menu):
-    sub_menus: List['MenuWithSubMenu'] = []
+class MenuUpdate(BaseModel):
+    menu_name: Optional[str] = None
+    route: Optional[str] = None
+    parent_menu_id: Optional[int] = None
+    icon: Optional[str] = None
+    order_no: Optional[int] = None # Bisa diupdate
+    is_active: Optional[bool] = None # Bisa diupdate
 
-# Ini penting untuk Pydantic agar bisa menangani rekursi
-MenuWithSubMenu.update_forward_refs()
+Menu.update_forward_refs()

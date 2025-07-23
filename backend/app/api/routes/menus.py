@@ -15,8 +15,8 @@ router = APIRouter(
 )
 
 # Helper function untuk mengubah data flat menjadi struktur pohon (hirarkis)
-def build_menu_tree(menus: List[models.Menu]) -> List[schemas.MenuWithSubMenu]:
-    menu_map = {menu.menu_id: schemas.MenuWithSubMenu.from_orm(menu) for menu in menus}
+def build_menu_tree(menus: List[models.Menu]) -> List[schemas.Menu]:
+    menu_map = {menu.menu_id: schemas.Menu.from_orm(menu) for menu in menus}
     tree = []
 
     for menu_id, menu_node in menu_map.items():
@@ -35,7 +35,7 @@ def build_menu_tree(menus: List[models.Menu]) -> List[schemas.MenuWithSubMenu]:
     return tree
 
 # Pastikan decorator endpoint menggunakan variabel 'router' yang baru dibuat
-@router.get("/tree", response_model=List[schemas.MenuWithSubMenu])
+@router.get("/tree", response_model=List[schemas.Menu])
 def get_all_menus_as_tree(db: Session = Depends(database.get_db)):
     """
     Mengambil semua menu yang aktif dan mengembalikannya dalam format hirarkis (pohon)

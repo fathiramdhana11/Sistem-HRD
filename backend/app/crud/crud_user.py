@@ -1,8 +1,6 @@
-# File: backend/app/crud/crud_user.py
-
 from sqlalchemy.orm import Session
 from app import models, schemas
-from app.schemas.users import UserCreate, UserUpdate 
+from app.schemas.users import UserCreate, UserUpdate # Import langsung skema yang dibutuhkan
 from app.utils import security
 
 def get_user(db: Session, user_id: int):
@@ -31,16 +29,19 @@ def create_user(db: Session, user: UserCreate):
     db.refresh(db_user)
     return db_user
 
-def update_user(db: Session, user_id: int, user_update: schemas.user.UserUpdate):
+def update_user(db: Session, user_id: int, user_update: UserUpdate): # Menggunakan UserUpdate langsung
     """Mengupdate data user berdasarkan ID."""
     db_user = get_user(db, user_id=user_id)
     if not db_user:
         return None
 
-    # Ambil data dari skema update
     update_data = user_update.dict(exclude_unset=True)
 
-    # Update field di objek user dari database
+    # Handle password update separately if provided
+    if "password" in update_data and update_data["password"]:
+        db_user.password = security.get_password_hash(update_data["password"])
+        del update_data["password"] # Remove from update_data to avoid setting twice
+
     for key, value in update_data.items():
         setattr(db_user, key, value)
 
@@ -48,3 +49,12 @@ def update_user(db: Session, user_id: int, user_update: schemas.user.UserUpdate)
     db.commit()
     db.refresh(db_user)
     return db_user
+
+def delete_user(db: Session, user_id: int):
+    """Menghapus user berdasarkan ID."""
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).first()
+    if db_user:
+        db.delete(db_user)
+        db.commit()
+        return True
+    return False
