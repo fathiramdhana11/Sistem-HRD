@@ -1,1 +1,6 @@
-from .auth import LoginRequest
+# File: backend/app/schemas/__init__.py
+
+from .users import User, UserCreate, UserBase
+from .roles import Role, RoleCreate, RoleBase
+from .menus import Menu, MenuCreate, MenuWithSubMenu, MenuBase
+from .token import Token, TokenData
