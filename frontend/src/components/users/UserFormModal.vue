@@ -24,8 +24,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed } from 'vue';
-import roleService from '@/services/roleService';
+import { ref, watch, computed, onMounted } from 'vue'
+import { useToast } from '@/composables/useToast'
+import roleService from '@/services/roleService'
 
 const props = defineProps({
   isOpen: Boolean,
@@ -44,6 +45,7 @@ const form = ref({
   role_id: null
 });
 const roles = ref([]);
+const toast = useToast();
 
 // Judul dinamis
 const title = computed(() => props.userToEdit ? 'Edit Pengguna' : 'Tambah Pengguna Baru');
@@ -63,12 +65,25 @@ const fetchRoles = async () => {
   try {
     const response = await roleService.getRoles();
     roles.value = response.data;
-  } catch (error) { console.error("Gagal mengambil data peran:", error); }
+    toast.success('Berhasil!', 'Data peran berhasil dimuat');
+  } catch (error) {
+    console.error("Gagal mengambil data peran:", error);
+    toast.error('Gagal Memuat', 'Tidak dapat mengambil data peran');
+  }
 };
 
-const submitForm = () => {
-  // Kirim event dengan membawa data form dan user (jika ada)
-  emit('user-saved', { formData: form.value, user: props.userToEdit });
+const submitForm = async () => {
+  try {
+    // Kirim event dengan membawa data form dan user (jika ada)
+    emit('user-saved', { formData: form.value, user: props.userToEdit });
+    
+    // Toast sukses
+    const action = props.userToEdit ? 'diperbarui' : 'ditambahkan';
+    toast.success('Berhasil!', `Pengguna berhasil ${action}`);
+    
+  } catch (error) {
+    toast.error('Gagal Menyimpan', error.message || 'Terjadi kesalahan saat menyimpan data');
+  }
 };
 
 const close = () => {

@@ -4,17 +4,27 @@ from datetime import datetime, timedelta
 from fastapi import Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app import models, schemas
+# Fix the imports
+from app import models
+from app import schemas
+from app.schemas import token  # Add this import
+from app.models.users import User  # Add this import
 from app.database import get_db
 from app.crud import crud_user
 
-# Ganti ini dengan kunci rahasia yang kuat dari variabel lingkungan!
-SECRET_KEY = "b6fd8fbc4727bf95abb2379ca284166501d00b514506feba78b7b4e8862c21c0"  # Ganti dengan kunci rahasia yang kuat dan unik
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+# ✅ Gunakan .env file
+import os
+from dotenv import load_dotenv
 
-# ID peran Super Admin Anda
-SUPER_ADMIN_ROLE_ID = 1 # Sesuaikan dengan role_id super admin di database Anda (misalnya, 1 untuk Super Admin)
+# Tambahkan validasi
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY environment variable is required")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
+SUPER_ADMIN_ROLE_ID = int(os.getenv("SUPER_ADMIN_ROLE_ID", 1))
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -31,20 +41,38 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+# Tambahkan konfigurasi refresh token
+REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", 7))
+
+def create_refresh_token(data: dict):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+    to_encode.update({"exp": expire, "type": "refresh"})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+def verify_refresh_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        if payload.get("type") != "refresh":
+            raise JWTError("Invalid token type")
+        return payload
+    except JWTError:
+        return None
+
 # Dependensi untuk mendapatkan user yang sedang login dari token
-async def get_current_user(token: str = Depends(schemas.token.oauth2_scheme), db: Session = Depends(get_db)):
+async def get_current_user(token_str: str = Depends(token.oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token_str, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-        # TokenData didefinisikan di schemas/token.py
-        token_data = schemas.token.TokenData(username=username) 
+        token_data = token.TokenData(username=username) 
     except JWTError:
         raise credentials_exception
     user = crud_user.get_user_by_username(db, username=token_data.username)
@@ -53,7 +81,7 @@ async def get_current_user(token: str = Depends(schemas.token.oauth2_scheme), db
     return user
 
 # Dependensi untuk mendapatkan user yang sedang login dan memastikan mereka adalah Super Admin
-async def get_current_active_superuser(current_user: models.User = Depends(get_current_user)):
+async def get_current_active_superuser(current_user: User = Depends(get_current_user)):
     if current_user.role_id != SUPER_ADMIN_ROLE_ID:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,

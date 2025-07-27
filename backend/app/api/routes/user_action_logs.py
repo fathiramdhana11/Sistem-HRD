@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from app import database, schemas, models # Import models juga
-from app.crud import crud_user_action_log # Anda perlu membuat crud_user_action_log.py
+from app.crud import crud_user_action_logs 
 from app.utils.security import get_current_active_superuser # Proteksi dengan Super Admin
 from app.schemas.user_action_logs import UserActionLog, UserActionLogCreate # Import schema
 from app.schemas.users import User # Import User untuk type hinting
@@ -23,7 +23,7 @@ def read_all_user_action_logs(
     limit: int = 100
 ):
     """Endpoint untuk mengambil semua data log aktivitas user."""
-    return crud_user_action_log.get_user_action_logs(db, skip=skip, limit=limit)
+    return crud_user_action_logs.get_user_action_logs(db, skip=skip, limit=limit)
 
 # Anda bisa menambahkan endpoint POST untuk membuat log (misalnya dari middleware atau event)
 # @router.post("/", response_model=UserActionLog, status_code=status.HTTP_201_CREATED)

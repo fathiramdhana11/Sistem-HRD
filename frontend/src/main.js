@@ -1,41 +1,65 @@
-// File: frontend/src/main.js
-
 import { createApp } from 'vue'
-import { createPinia } from 'pinia' // Asumsikan Anda menggunakan Pinia
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-import './styles/index.css' // File CSS utama Anda
+// Hapus import themeStore
 
-// --- TAMBAHAN BARU ---
-import Toast from 'vue-toastification'
-import 'vue-toastification/dist/index.css' // Impor CSS defaultnya
+// PrimeVue imports
+import PrimeVue from 'primevue/config'
+import 'primeicons/primeicons.css'
+
+// PrimeVue components
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Button from 'primevue/button'
+import InputText from 'primevue/inputtext'
+import Select from 'primevue/select'
+import Dialog from 'primevue/dialog'
+import Toast from 'primevue/toast'
+import ToastService from 'primevue/toastservice'
+import Tag from 'primevue/tag'
+import Calendar from 'primevue/calendar'
+import Checkbox from 'primevue/checkbox'
+import Avatar from 'primevue/avatar'
+import Badge from 'primevue/badge'
+import Menu from 'primevue/menu'
+import Tooltip from 'primevue/tooltip'
+import Popover from 'primevue/popover'
+
+// Tailwind CSS
+import './style.css'
 
 const app = createApp(App)
-const pinia = createPinia() // Inisialisasi Pinia
+const pinia = createPinia()
 
-app.use(pinia) // Gunakan Pinia sebelum router
+app.use(pinia)
 app.use(router)
 
-// --- TAMBAHAN BARU: Konfigurasi Toast ---
-const options = {
-  position: "top-right",
-  timeout: 4000,
-  closeOnClick: true,
-  pauseOnFocusLoss: true,
-  pauseOnHover: true,
-  draggable: true,
-  draggablePercent: 0.6,
-  showCloseButtonOnHover: false,
-  hideProgressBar: false,
-  closeButton: "button",
-  icon: true,
-  rtl: false,
-  transition: "Vue-Toastification__bounce",
-  maxToasts: 5,
-  newestOnTop: true
-};
+// Hapus inisialisasi theme
 
-app.use(Toast, options);
-// ------------------------------------
+// Use PrimeVue in unstyled mode
+app.use(PrimeVue, {
+    unstyled: true
+})
+app.use(ToastService)
+
+// Register PrimeVue components globally
+app.component('DataTable', DataTable)
+app.component('Column', Column)
+app.component('Button', Button)
+app.component('InputText', InputText)
+app.component('Select', Select)
+app.component('Dialog', Dialog)
+app.component('Toast', Toast)
+app.component('Tag', Tag)
+app.component('Calendar', Calendar)
+app.component('Checkbox', Checkbox)
+app.component('Avatar', Avatar)
+app.component('Badge', Badge)
+app.component('Menu', Menu)
+app.component('Popover', Popover)
+
+// Register directives
+app.directive('tooltip', Tooltip)
 
 app.mount('#app')

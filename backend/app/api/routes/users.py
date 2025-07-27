@@ -29,9 +29,10 @@ def create_new_user(user: UserCreate, db: Session = Depends(database.get_db),
     return crud_user.create_user(db=db, user=user)
 
 
+# Ganti dari get_current_active_superuser ke get_current_user
 @router.get("/", response_model=List[User])
 def read_all_users(skip: int = 0, limit: int = 100, db: Session = Depends(database.get_db),
-                    current_user: User = Depends(get_current_active_superuser)): # Proteksi untuk Super Admin
+                    current_user: User = Depends(get_current_user)):  # Ubah ini
     """Endpoint untuk mengambil semua data user."""
     users = crud_user.get_users(db, skip=skip, limit=limit)
     return users
@@ -39,8 +40,15 @@ def read_all_users(skip: int = 0, limit: int = 100, db: Session = Depends(databa
 
 @router.get("/{user_id}", response_model=User)
 def read_user_by_id(user_id: int, db: Session = Depends(database.get_db),
-                    current_user: User = Depends(get_current_active_superuser)): # Proteksi untuk Super Admin
+                    current_user: User = Depends(get_current_user)):  # Ubah dari get_current_active_superuser
     """Endpoint untuk mengambil satu user berdasarkan ID."""
+    # Izinkan user melihat data diri sendiri atau superadmin melihat semua
+    if current_user.user_id != user_id and current_user.role_id != 1:
+        raise HTTPException(
+            status_code=403, 
+            detail="Not enough permissions to access this user data"
+        )
+    
     db_user = crud_user.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")

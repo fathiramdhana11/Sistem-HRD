@@ -1,69 +1,232 @@
 <template>
-  <header class="bg-white h-16 flex items-center justify-between px-6 border-b border-slate-200 shrink-0">
+  <header class="bg-white border-b border-emerald-300 px-6 py-4 flex items-center justify-between shadow-sm">
+    <!-- Left Section -->
     <div class="flex items-center space-x-4">
-      <button @click="interfaceStore.toggleSidebar" class="p-2 rounded-full text-slate-500 hover:bg-slate-100 focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
-        </svg>
-      </button>
-
-      <div class="relative hidden sm:block">
-        <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-          <MagnifyingGlassIcon class="w-5 h-5 text-slate-400" />
-        </span>
+      <!-- Sidebar Toggle -->
+      <Button 
+        @click="toggleSidebar" 
+        icon="pi pi-bars" 
+        class="p-button-text p-button-rounded !border-emerald-500 !bg-emerald-50 text-emerald-700 hover:!bg-emerald-100 hover:!border-emerald-600 focus:!outline-none focus:!ring-2 focus:!ring-emerald-200 focus:!border-emerald-500 active:!bg-emerald-200 !w-10 !h-10 !p-0 flex items-center justify-center transition-all duration-200"
+        v-tooltip.bottom="'Toggle Menu'"
+      />
+      
+      <!-- Search Bar -->
+      <div class="hidden md:flex relative flex-1 max-w-md">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+          <i class="pi pi-search text-emerald-500 text-sm"></i>
+        </div>
         <input 
+          v-model="searchQuery" 
           type="text"
-          placeholder="Cari..."
-          class="w-64 pl-10 pr-4 py-2 bg-slate-100 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Cari karyawan, dokumen..."
+          class="w-full pl-10 pr-4 py-2.5 border border-emerald-300 rounded-lg focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none text-sm transition-all duration-200 bg-white"
         />
       </div>
     </div>
 
-    <div class="flex items-center space-x-5">
-      <button class="relative text-slate-500 hover:text-slate-700">
-        <span class="absolute -top-1 -right-1 flex h-3 w-3">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-        </span>
-        <BellIcon class="w-6 h-6" />
-      </button>
-
-      <div class="h-6 w-px bg-slate-200"></div>
-
+    <!-- Right Section -->
+    <div class="flex items-center space-x-3">
+      <!-- Mobile Search -->
+      <Button 
+        @click="toggleMobileSearch" 
+        icon="pi pi-search" 
+        class="md:hidden p-button-text p-button-rounded !border-emerald-500 !bg-emerald-50 text-emerald-700 hover:!bg-emerald-100 hover:!border-emerald-600 focus:!outline-none focus:!ring-2 focus:!ring-emerald-200 focus:!border-emerald-500 active:!bg-emerald-200 !w-10 !h-10 !p-0 flex items-center justify-center transition-all duration-200"
+        v-tooltip.bottom="'Cari'"
+      />
+      
+      <!-- Notifications -->
       <div class="relative">
-        <button @click="toggleDropdown" class="flex items-center space-x-2">
-          <img class="h-9 w-9 rounded-full object-cover" src="https://i.pravatar.cc/100" alt="User Avatar">
-          <span class="hidden sm:inline text-sm font-medium text-slate-700">{{ user.username }}</span>
-          <ChevronDownIcon class="w-4 h-4 text-slate-500 hidden sm:inline" />
-        </button>
-        <div v-if="isDropdownOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl z-20 border border-slate-200/80 py-1">
-          <router-link to="/profile" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">Profil</router-link>
-          <button @click="logout" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">Logout</button>
+        <Button 
+          @click="toggleNotifications" 
+          icon="pi pi-bell" 
+          class="p-button-text p-button-rounded !border-emerald-500 !bg-emerald-50 text-emerald-700 hover:!bg-emerald-100 hover:!border-emerald-600 focus:!outline-none focus:!ring-2 focus:!ring-emerald-200 focus:!border-emerald-500 active:!bg-emerald-200 !w-10 !h-10 !p-0 flex items-center justify-center transition-all duration-200"
+          v-tooltip.bottom="'Notifikasi'"
+        />
+        <span 
+          v-if="notificationCount > 0"
+          class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center leading-none"
+        >
+          {{ notificationCount }}
+        </span>
+      </div>
+      
+      <!-- Administrator Menu -->
+      <div class="relative">
+        <Button 
+          @click="toggleUserMenu" 
+          class="p-button-text !border-emerald-500 !bg-emerald-50 hover:!bg-emerald-100 hover:!border-emerald-600 focus:!outline-none focus:!ring-2 focus:!ring-emerald-200 focus:!border-emerald-500 active:!bg-emerald-200 px-3 py-2 rounded-lg transition-all duration-200"
+          v-tooltip.bottom="'Menu Pengguna'"
+        >
+          <div class="flex items-center space-x-3">
+            <Avatar 
+              label="A" 
+              class="bg-emerald-600 text-white w-8 h-8 text-sm font-semibold"
+              shape="circle"
+            />
+            <span class="text-sm font-medium text-emerald-700 hidden lg:block">Administrator</span>
+            <i class="pi pi-chevron-down text-xs text-emerald-600 hidden lg:block transition-transform duration-200 ml-1"></i>
+          </div>
+        </Button>
+      </div>
+    </div>
+
+    <!-- Mobile Search Overlay -->
+    <div 
+      v-if="showMobileSearch"
+      class="absolute top-full left-0 right-0 bg-white border-b border-emerald-200 p-4 md:hidden z-40 shadow-sm"
+    >
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+          <i class="pi pi-search text-emerald-500 text-sm"></i>
         </div>
+        <input 
+          v-model="searchQuery" 
+          type="text"
+          placeholder="Cari karyawan, dokumen..."
+          class="w-full pl-10 pr-4 py-2.5 border border-emerald-300 rounded-lg focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none text-sm transition-all duration-200 bg-white"
+          @blur="hideMobileSearch"
+          ref="mobileSearchInput"
+        />
       </div>
     </div>
   </header>
+
+  <!-- User Menu Popover -->
+  <Teleport to="body">
+    <Popover ref="userMenu" class="z-50">
+      <div class="bg-white rounded-xl shadow-xl border border-emerald-200 overflow-hidden w-56">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 p-4 text-white">
+          <div class="flex items-center space-x-3">
+            <Avatar 
+              label="A" 
+              class="bg-white/20 text-white w-10 h-10 font-semibold"
+              shape="circle"
+            />
+            <div>
+              <p class="font-semibold">Administrator</p>
+              <p class="text-sm text-emerald-100">Super Admin</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Menu Items -->
+        <div class="p-2">
+          <div 
+            v-for="item in userMenuItems" 
+            :key="item.label"
+            @click="item.command"
+            class="flex items-center space-x-3 p-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg cursor-pointer transition-all duration-200 group"
+          >
+            <i :class="item.icon" class="text-gray-500 group-hover:text-emerald-600 w-4 transition-colors duration-200"></i>
+            <span class="text-sm font-medium">{{ item.label }}</span>
+          </div>
+        </div>
+      </div>
+    </Popover>
+  </Teleport>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { MagnifyingGlassIcon, BellIcon, ChevronDownIcon } from '@heroicons/vue/24/outline';
-import { useInterfaceStore } from '@/stores/interfaceStore'; 
+import { ref, onMounted, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
+import { useInterfaceStore } from '@/stores/interfaceStore'
+import { useAuthStore } from '@/stores/authStore'
+import Popover from 'primevue/popover'
+import Button from 'primevue/button'
+import InputText from 'primevue/inputtext'
+import Avatar from 'primevue/avatar'
+import Badge from 'primevue/badge'
 
-const router = useRouter();
-const user = ref({});
-const isDropdownOpen = ref(false);
-const interfaceStore = useInterfaceStore();
+const router = useRouter()
+const searchQuery = ref('')
+const showMobileSearch = ref(false)
+const mobileSearchInput = ref(null)
+const interfaceStore = useInterfaceStore()
+const authStore = useAuthStore()
+const userMenu = ref()
+const notificationCount = ref(3)
 
-const toggleDropdown = () => { isDropdownOpen.value = !isDropdownOpen.value; };
-const logout = () => {
-  localStorage.removeItem('auth');
-  router.push('/login');
-};
+const userMenuItems = ref([
+  {
+    label: 'Profil Saya',
+    icon: 'pi pi-user',
+    command: () => {
+      userMenu.value.hide()
+      router.push('/profile')
+    }
+  },
+  {
+    label: 'Pengaturan',
+    icon: 'pi pi-cog',
+    command: () => {
+      userMenu.value.hide()
+      router.push('/settings')
+    }
+  },
+  {
+    label: 'Bantuan',
+    icon: 'pi pi-question-circle',
+    command: () => {
+      userMenu.value.hide()
+    }
+  },
+  {
+    label: 'Keluar',
+    icon: 'pi pi-sign-out',
+    command: () => {
+      userMenu.value.hide()
+      logout()
+    }
+  }
+])
 
-onMounted(() => {
-  const auth = JSON.parse(localStorage.getItem('auth'));
-  user.value = auth?.user || {};
-});
+const toggleSidebar = () => {
+  interfaceStore.toggleSidebar()
+}
+
+const toggleUserMenu = (event) => {
+  userMenu.value.toggle(event)
+}
+
+const toggleNotifications = () => {
+  console.log('Toggle notifications')
+}
+
+const toggleMobileSearch = async () => {
+  showMobileSearch.value = !showMobileSearch.value
+  if (showMobileSearch.value) {
+    await nextTick()
+    mobileSearchInput.value?.$el?.focus()
+  }
+}
+
+const hideMobileSearch = () => {
+  setTimeout(() => {
+    showMobileSearch.value = false
+  }, 150)
+}
+
+const logout = async () => {
+  try {
+    await authStore.logout()
+  } catch (error) {
+    console.error('Logout error:', error)
+    router.push('/login')
+  }
+}
 </script>
+
+<style scoped>
+:deep(.p-popover) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+:deep(.p-popover-content) {
+  padding: 0 !important;
+  background: transparent !important;
+}
+</style>

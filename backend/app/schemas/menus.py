@@ -1,6 +1,9 @@
+from __future__ import annotations
 from pydantic import BaseModel
+from typing import Optional
 from typing import Optional, List
 from datetime import datetime
+
 
 class MenuBase(BaseModel):
     menu_name: str
@@ -15,6 +18,7 @@ class MenuCreate(MenuBase):
 
 class Menu(MenuBase):
     menu_id: int
+    sub_menus: List[Menu] = []
     created_at: datetime
     updated_at: Optional[datetime] = None
     created_by: Optional[int] = None
@@ -34,4 +38,4 @@ class MenuUpdate(BaseModel):
     order_no: Optional[int] = None # Bisa diupdate
     is_active: Optional[bool] = None # Bisa diupdate
 
-Menu.update_forward_refs()
+Menu.model_rebuild()

@@ -1,40 +1,180 @@
+/* Import custom PrimeVue + Tailwind integration */
+@import './styles/primevue-tailwind.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Enhanced dark mode transitions */
+* {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Custom scrollbar for dark mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* Enhanced Table Styling - HANYA untuk DataTable, bukan Dialog */
+.dark .p-datatable {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.dark .p-datatable .p-datatable-header {
+  @apply bg-gray-800 border-gray-700 text-gray-100;
+}
+
+.dark .p-datatable .p-datatable-thead > tr > th {
+  @apply bg-gray-700 border-gray-600 text-gray-200;
+}
+
+.dark .p-datatable .p-datatable-tbody > tr {
+  @apply bg-gray-800 border-gray-700 text-gray-100;
+}
+
+.dark .p-datatable .p-datatable-tbody > tr:nth-child(even) {
+  background-color: #374151; /* Custom gray-750 color */
+}
+
+.dark .p-datatable .p-datatable-tbody > tr:hover {
+  @apply bg-gray-700;
+}
+
+.dark .p-datatable .p-datatable-tbody > tr > td {
+  @apply border-gray-700 text-gray-100;
+}
+
+.dark .p-datatable .p-datatable-footer {
+  @apply bg-gray-800 border-gray-700 text-gray-100;
+}
+
+.dark .p-paginator {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.dark .p-paginator .p-paginator-pages .p-paginator-page {
+  @apply text-gray-300 hover:bg-gray-700;
+}
+
+.dark .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  @apply bg-emerald-600 text-white;
+}
+
+.dark .p-paginator .p-dropdown {
+  @apply bg-gray-700 border-gray-600 text-gray-100;
+}
+
+/* Enhanced Card Styling */
+.dark .p-card {
+  @apply bg-gray-800 border-gray-700 shadow-xl;
+}
+
+.dark .p-card .p-card-header {
+  @apply bg-gray-800 border-gray-700 text-gray-100;
+}
+
+.dark .p-card .p-card-body {
+  @apply bg-gray-800 text-gray-100;
+}
+
+.dark .p-card .p-card-footer {
+  @apply bg-gray-800 border-gray-700 text-gray-100;
+}
+
+/* Base styles with dark mode support */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  color: #213547;
+  background-color: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+.dark:root {
+  color: #e5e7eb;
+  background-color: #111827;
 }
 
 body {
+  @apply font-sans antialiased bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#app {
+  @apply h-screen;
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  text-align: left;
 }
 
+/* Enhanced component styles */
+.card {
+  @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-xl border border-gray-200 dark:border-gray-700 p-6 transition-all duration-300 hover:shadow-md dark:hover:shadow-2xl;
+}
+
+.btn-primary {
+  @apply bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 shadow-lg hover:shadow-xl;
+}
+
+.btn-secondary {
+  @apply bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 shadow-lg hover:shadow-xl;
+}
+
+/* Enhanced animation utilities */
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Enhanced links */
+a {
+  font-weight: 500;
+  color: #10b981;
+  text-decoration: inherit;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #059669;
+}
+
+.dark a {
+  color: #34d399;
+}
+
+.dark a:hover {
+  color: #10b981;
+}
+
+/* Enhanced buttons */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -42,38 +182,296 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #f9f9f9;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s ease;
 }
+
 button:hover {
-  border-color: #646cff;
+  border-color: #10b981;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
 }
+
+.dark button {
+  background-color: #374151;
+  color: #e5e7eb;
+}
+
+.dark button:hover {
+  background-color: #4b5563;
+  border-color: #34d399;
+}
+
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
 }
 
-.card {
-  padding: 2em;
+/* Enhanced layout utilities */
+.dashboard-container {
+  @apply min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.sidebar {
+  @apply w-64 bg-white dark:bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700 transition-colors duration-300;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.main-content {
+  @apply flex-1 p-6 ml-64 bg-gray-50 dark:bg-gray-900 transition-colors duration-300;
+}
+
+/* Custom gradient utilities */
+.gradient-emerald {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.gradient-blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.gradient-amber {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+/* ===== DIALOG/MODAL STYLING (UNSTYLED MODE) ===== */
+/* Dialog Overlay */
+.p-dialog-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1100;
+}
+
+/* Dialog Container */
+.p-dialog {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  margin: 1rem;
+}
+
+/* Dark mode dialog */
+.dark .p-dialog {
+  background: #374151;
+  color: white;
+}
+
+/* Dialog Header */
+.p-dialog-header {
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dark .p-dialog-header {
+  border-bottom-color: #4b5563;
+}
+
+.p-dialog-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.dark .p-dialog-title {
+  color: white;
+}
+
+/* Dialog Content */
+.p-dialog-content {
+  padding: 0;
+  overflow-y: auto;
+}
+
+/* Dialog Footer */
+.p-dialog-footer {
+  padding: 0;
+}
+
+/* Close Button */
+.p-dialog-header-close {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+}
+
+.p-dialog-header-close:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.dark .p-dialog-header-close {
+  color: #d1d5db;
+}
+
+.dark .p-dialog-header-close:hover {
+  background-color: #4b5563;
+  color: white;
+}
+
+/* Input Text Styling */
+.p-inputtext {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: white;
+  color: #111827;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.p-inputtext:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.dark .p-inputtext {
+  background-color: #4b5563;
+  border-color: #6b7280;
+  color: white;
+}
+
+.dark .p-inputtext:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+}
+
+/* Select/Dropdown Styling */
+.p-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: white;
+  color: #111827;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.p-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.dark .p-select {
+  background-color: #4b5563;
+  border-color: #6b7280;
+  color: white;
+}
+
+.dark .p-select:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+}
+
+/* Select Dropdown Panel */
+.p-select-overlay {
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 1200;
+}
+
+.dark .p-select-overlay {
+  background: #4b5563;
+  border-color: #6b7280;
+}
+
+.p-select-option {
+  padding: 0.75rem;
+  cursor: pointer;
+  color: #111827;
+}
+
+.p-select-option:hover {
+  background-color: #f3f4f6;
+}
+
+.dark .p-select-option {
+  color: white;
+}
+
+.dark .p-select-option:hover {
+  background-color: #6b7280;
+}
+
+/* Button Styling */
+.p-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.p-button-text {
+  background: transparent;
+  color: #6b7280;
+  border: 1px solid transparent;
+}
+
+.p-button-text:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.dark .p-button-text {
+  color: #d1d5db;
+}
+
+.dark .p-button-text:hover {
+  background-color: #4b5563;
+  color: white;
+}
+
+/* Label Styling */
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.dark label {
+  color: #d1d5db;
 }

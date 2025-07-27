@@ -16,4 +16,17 @@ def create_role(db: Session, role: schemas.RoleCreate):
     db.refresh(db_role)
     return db_role
 
-# Anda bisa menambahkan fungsi update_role dan delete_role di sini juga jika diperlukan
+def update_role(db: Session, role_id: int, role: schemas.RoleCreate):
+    db_role = db.query(models.Role).filter(models.Role.role_id == role_id).first()
+    if db_role:
+        db_role.role_name = role.role_name
+        db.commit()
+        db.refresh(db_role)
+    return db_role
+
+def delete_role(db: Session, role_id: int):
+    db_role = db.query(models.Role).filter(models.Role.role_id == role_id).first()
+    if db_role:
+        db.delete(db_role)
+        db.commit()
+    return db_role

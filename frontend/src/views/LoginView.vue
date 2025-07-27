@@ -87,24 +87,59 @@
 import { ref } from "vue";
 import authService from "@/services/authService";
 import { useAuthStore } from "@/stores/authStore";
-import { useAlert } from "@/composables/useAlert";
+import { useToast } from "@/composables/useToast"; // Ganti dari useAlert
 
 const username = ref("");
 const password = ref("");
 const isLoading = ref(false);
 
 const authStore = useAuthStore();
-const alert = useAlert();
+const toast = useToast(); // Ganti dari alert
 
 const handleLogin = async () => {
   isLoading.value = true;
+  
+  // Bersihkan localStorage sebelum login untuk mencegah konflik
+  localStorage.removeItem('auth');
+  
   try {
-    const response = await authService.login(username.value, password.value);
-    alert.success(`Selamat datang, ${response.data.user.username}!`);
+    const response = await authService.login({
+      username: username.value,
+      password: password.value
+    });
+    toast.success('Login Berhasil!', `Selamat datang, ${response.data.user.username}!`);
     authStore.login(response.data);
   } catch (err) {
-    alert.error("Username atau password salah.");
-    console.error("Login failed:", err);
+    // Improved error handling dengan pesan yang lebih spesifik
+    let errorTitle = 'Login Gagal';
+    let errorMessage = 'Terjadi kesalahan saat login';
+    
+    if (err.response) {
+      // Server responded with error status
+      switch (err.response.status) {
+        case 401:
+          errorTitle = 'Username atau Password Salah';
+          errorMessage = 'Silakan periksa kembali username dan password Anda.';
+          break;
+        case 422:
+          errorTitle = 'Data Tidak Valid';
+          errorMessage = 'Format username atau password tidak valid.';
+          break;
+        case 500:
+          errorTitle = 'Server Error';
+          errorMessage = 'Terjadi kesalahan pada server. Silakan coba lagi.';
+          break;
+        default:
+          errorMessage = err.response.data?.detail || 'Terjadi kesalahan saat login';
+      }
+    } else if (err.request) {
+      // Network error
+      errorTitle = 'Koneksi Error';
+      errorMessage = 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.';
+    }
+    
+    // Tampilkan alert yang jelas untuk user
+    toast.error(errorTitle, errorMessage);
   } finally {
     isLoading.value = false;
   }

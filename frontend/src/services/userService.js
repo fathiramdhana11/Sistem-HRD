@@ -21,8 +21,17 @@ const updateUser = (userId, userData) => {
   });
 };
 
+// --- FUNGSI BARU UNTUK MENGHAPUS PENGGUNA ---
+const deleteUser = (userId) => {
+  return axios.delete(`${API_URL}/api/users/${userId}`, {
+    headers: getAuthHeaders()
+  });
+};
+
+
 export default {
   getUsers,
   createUser,
   updateUser,
+  deleteUser,
 };
