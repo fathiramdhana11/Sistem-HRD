@@ -119,11 +119,20 @@ axios.interceptors.response.use(
         isRefreshing = false;
       }
     } else if (error.response?.status === 403) {
-      toast.error('Akses Ditolak', 'Anda tidak memiliki izin untuk mengakses resource ini.');
+      // Hanya tampilkan toast jika bukan dari halaman login
+      if (!originalRequest.url.includes('/api/token')) {
+        toast.error('Akses Ditolak', 'Anda tidak memiliki izin untuk mengakses resource ini.');
+      }
     } else if (error.response?.status >= 500) {
-      toast.error('Server Error', 'Terjadi kesalahan pada server. Silakan coba lagi nanti.');
+      // Hanya tampilkan toast jika bukan dari halaman login
+      if (!originalRequest.url.includes('/api/token')) {
+        toast.error('Server Error', 'Terjadi kesalahan pada server. Silakan coba lagi nanti.');
+      }
     } else if (!error.response) {
-      toast.error('Koneksi Error', 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.');
+      // Hanya tampilkan toast jika bukan dari halaman login
+      if (!originalRequest.url.includes('/api/token')) {
+        toast.error('Koneksi Error', 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.');
+      }
     }
     
     return Promise.reject(error);

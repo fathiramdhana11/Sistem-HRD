@@ -43,7 +43,23 @@
 }
 
 
-/* Modal Container */
+/* Enhanced modern theme - LIGHT MODE ONLY */
+:root {
+  --primary-color: #10b981;
+  --primary-color-text: #ffffff;
+  --surface-a: #ffffff;
+  --surface-b: #f9fafb;
+  --surface-c: #f3f4f6;
+  --text-color: #1f2937;
+  --text-color-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --emerald-50: #ecfdf5;
+  --emerald-100: #d1fae5;
+  --emerald-500: #10b981;
+  --emerald-600: #059669;
+}
+
+/* Modal Container - LIGHT MODE ONLY */
 body .p-dialog.p-component,
 body .p-dialog,
 .p-dialog.p-component,
@@ -57,7 +73,7 @@ body .p-dialog,
   color: #111827 !important;
 }
 
-/* Modal Header */
+/* Modal Header - LIGHT MODE ONLY */
 body .p-dialog.p-component .p-dialog-header,
 body .p-dialog .p-dialog-header,
 .p-dialog.p-component .p-dialog-header,
@@ -69,15 +85,7 @@ body .p-dialog .p-dialog-header,
   padding: 1rem 1.5rem !important;
 }
 
-body .p-dialog.p-component .p-dialog-header .p-dialog-title,
-body .p-dialog .p-dialog-header .p-dialog-title,
-.p-dialog.p-component .p-dialog-header .p-dialog-title,
-.p-dialog .p-dialog-header .p-dialog-title {
-  color: #111827 !important;
-  font-weight: 600 !important;
-}
-
-/* Modal Content */
+/* Modal Content - LIGHT MODE ONLY */
 body .p-dialog.p-component .p-dialog-content,
 body .p-dialog .p-dialog-content,
 .p-dialog.p-component .p-dialog-content,
@@ -88,452 +96,145 @@ body .p-dialog .p-dialog-content,
   padding: 0 !important;
 }
 
-/* Modal Footer */
-body .p-dialog.p-component .p-dialog-footer,
-body .p-dialog .p-dialog-footer,
-.p-dialog.p-component .p-dialog-footer,
-.p-dialog .p-dialog-footer {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  border-top: 1px solid #e5e7eb !important;
-  padding: 0 !important;
-}
-
-/* Input Fields */
+/* Input Fields - LIGHT MODE ONLY */
 body .p-dialog .p-inputtext,
 body .p-dialog input[type="text"],
 body .p-dialog input[type="email"],
 body .p-dialog input[type="password"],
-body .p-dialog .p-inputtext.p-component,
 .p-dialog .p-inputtext,
 .p-dialog input[type="text"],
 .p-dialog input[type="email"],
-.p-dialog input[type="password"],
-.p-dialog .p-inputtext.p-component,
-.p-dialog.p-component .p-inputtext,
-.p-dialog.p-component input[type="text"],
-.p-dialog.p-component input[type="email"],
-.p-dialog.p-component input[type="password"],
-.p-dialog.p-component .p-inputtext.p-component {
+.p-dialog input[type="password"] {
   background: #ffffff !important;
   background-color: #ffffff !important;
   border: 1px solid #d1d5db !important;
-  border-radius: 0.5rem !important;
-  padding: 0.75rem !important;
-  min-height: 2.75rem !important;
-  width: 100% !important;
-  color: #111827 !important;
-  font-size: 0.875rem !important;
-  line-height: 1.25rem !important;
-  box-sizing: border-box !important;
-  transition: all 0.2s ease !important;
-}
-
-/* Input Focus */
-body .p-dialog .p-inputtext:focus,
-body .p-dialog input:focus,
-.p-dialog .p-inputtext:focus,
-.p-dialog input:focus,
-.p-dialog.p-component .p-inputtext:focus,
-.p-dialog.p-component input:focus {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  border-color: #10b981 !important;
-  color: #111827 !important;
-  outline: none !important;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
-}
-
-/* Input Placeholder */
-body .p-dialog .p-inputtext::placeholder,
-body .p-dialog input::placeholder,
-.p-dialog .p-inputtext::placeholder,
-.p-dialog input::placeholder,
-.p-dialog.p-component .p-inputtext::placeholder,
-.p-dialog.p-component input::placeholder {
-  color: #9ca3af !important;
-  opacity: 1 !important;
-}
-
-/* Select/Dropdown */
-body .p-dialog .p-select,
-body .p-dialog .p-dropdown,
-body .p-dialog .p-select.p-component,
-body .p-dialog .p-dropdown.p-component,
-.p-dialog .p-select,
-.p-dialog .p-dropdown,
-.p-dialog .p-select.p-component,
-.p-dialog .p-dropdown.p-component,
-.p-dialog.p-component .p-select,
-.p-dialog.p-component .p-dropdown,
-.p-dialog.p-component .p-select.p-component,
-.p-dialog.p-component .p-dropdown.p-component {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  border: 1px solid #d1d5db !important;
-  border-radius: 0.5rem !important;
-  min-height: 2.75rem !important;
-  width: 100% !important;
   color: #111827 !important;
 }
 
-/* Select Label */
-body .p-dialog .p-select .p-select-label,
-body .p-dialog .p-dropdown .p-dropdown-label,
-.p-dialog .p-select .p-select-label,
-.p-dialog .p-dropdown .p-dropdown-label,
-.p-dialog.p-component .p-select .p-select-label,
-.p-dialog.p-component .p-dropdown .p-dropdown-label {
-  background: transparent !important;
-  color: #111827 !important;
-  padding: 0.75rem !important;
-}
-
-/* Select Placeholder */
-body .p-dialog .p-select .p-select-label.p-placeholder,
-body .p-dialog .p-dropdown .p-dropdown-label.p-placeholder,
-.p-dialog .p-select .p-select-label.p-placeholder,
-.p-dialog .p-dropdown .p-dropdown-label.p-placeholder,
-.p-dialog.p-component .p-select .p-select-label.p-placeholder,
-.p-dialog.p-component .p-dropdown .p-dropdown-label.p-placeholder {
-  color: #9ca3af !important;
-}
-
-.p-select-panel.p-component,
-.p-dropdown-panel.p-component,
-.p-select-panel,
-.p-dropdown-panel {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  border: 1px solid #d1d5db !important;
-}
-
-.p-select-option,
-.p-dropdown-item {
-  color: #111827 !important;
-}
-
-.p-select-option:hover,
-.p-dropdown-item:hover {
-  background: #f3f4f6 !important;
-  color: #111827 !important;
-}
-
-/* Labels */
-body .p-dialog label,
-.p-dialog label,
-.p-dialog.p-component label {
-  color: #374151 !important;
-  font-weight: 500 !important;
-  font-size: 0.875rem !important;
-  margin-bottom: 0.5rem !important;
-  display: block !important;
-}
-
-/* Dialog Mask */
-.p-dialog-mask.p-component,
-.p-dialog-mask {
-  backdrop-filter: blur(4px) !important;
-  background: rgba(0, 0, 0, 0.5) !important;
-}
-
-/* DARK MODE - Hanya Aktif Ketika Ada Class .dark */
-.dark body .p-dialog.p-component,
-.dark body .p-dialog,
-.dark .p-dialog.p-component,
-.dark .p-dialog {
-  background: #1f2937 !important;
-  background-color: #1f2937 !important;
-  border: 1px solid #374151 !important;
-  color: #f9fafb !important;
-}
-
-.dark body .p-dialog.p-component .p-dialog-header,
-.dark body .p-dialog .p-dialog-header,
-.dark .p-dialog.p-component .p-dialog-header,
-.dark .p-dialog .p-dialog-header {
-  background: #1f2937 !important;
-  background-color: #1f2937 !important;
-  border-bottom: 1px solid #374151 !important;
-  color: #f9fafb !important;
-}
-
-.dark body .p-dialog.p-component .p-dialog-header .p-dialog-title,
-.dark body .p-dialog .p-dialog-header .p-dialog-title,
-.dark .p-dialog.p-component .p-dialog-header .p-dialog-title,
-.dark .p-dialog .p-dialog-header .p-dialog-title {
-  color: #f9fafb !important;
-}
-
-.dark body .p-dialog.p-component .p-dialog-content,
-.dark body .p-dialog .p-dialog-content,
-.dark .p-dialog.p-component .p-dialog-content,
-.dark .p-dialog .p-dialog-content {
-  background: #1f2937 !important;
-  background-color: #1f2937 !important;
-  color: #f9fafb !important;
-}
-
-.dark body .p-dialog.p-component .p-dialog-footer,
-.dark body .p-dialog .p-dialog-footer,
-.dark .p-dialog.p-component .p-dialog-footer,
-.dark .p-dialog .p-dialog-footer {
-  background: #1f2937 !important;
-  background-color: #1f2937 !important;
-  border-top: 1px solid #374151 !important;
-}
-
-/* Dark Mode Input Fields */
-.dark body .p-dialog .p-inputtext,
-.dark body .p-dialog input[type="text"],
-.dark body .p-dialog input[type="email"],
-.dark body .p-dialog input[type="password"],
-.dark body .p-dialog .p-inputtext.p-component,
-.dark .p-dialog .p-inputtext,
-.dark .p-dialog input[type="text"],
-.dark .p-dialog input[type="email"],
-.dark .p-dialog input[type="password"],
-.dark .p-dialog .p-inputtext.p-component,
-.dark .p-dialog.p-component .p-inputtext,
-.dark .p-dialog.p-component input[type="text"],
-.dark .p-dialog.p-component input[type="email"],
-.dark .p-dialog.p-component input[type="password"],
-.dark .p-dialog.p-component .p-inputtext.p-component {
-  background: #374151 !important;
-  background-color: #374151 !important;
-  border: 1px solid #4b5563 !important;
-  color: #f9fafb !important;
-}
-
-.dark body .p-dialog .p-inputtext:focus,
-.dark body .p-dialog input[type="text"]:focus,
-.dark body .p-dialog input[type="email"]:focus,
-.dark body .p-dialog input[type="password"]:focus,
-.dark body .p-dialog .p-inputtext.p-component:focus,
-.dark .p-dialog .p-inputtext:focus,
-.dark .p-dialog input[type="text"]:focus,
-.dark .p-dialog input[type="email"]:focus,
-.dark .p-dialog input[type="password"]:focus,
-.dark .p-dialog .p-inputtext.p-component:focus,
-.dark .p-dialog.p-component .p-inputtext:focus,
-.dark .p-dialog.p-component input[type="text"]:focus,
-.dark .p-dialog.p-component input[type="email"]:focus,
-.dark .p-dialog.p-component input[type="password"]:focus,
-.dark .p-dialog.p-component .p-inputtext.p-component:focus {
-  background: #374151 !important;
-  background-color: #374151 !important;
-  border-color: #10b981 !important;
-  color: #f9fafb !important;
-}
-
-.dark body .p-dialog .p-inputtext::placeholder,
-.dark body .p-dialog input::placeholder,
-.dark .p-dialog .p-inputtext::placeholder,
-.dark .p-dialog input::placeholder,
-.dark .p-dialog.p-component .p-inputtext::placeholder,
-.dark .p-dialog.p-component input::placeholder {
-  color: #9ca3af !important;
-}
-
-/* Dark Mode Select/Dropdown */
-.dark body .p-dialog .p-select,
-.dark body .p-dialog .p-dropdown,
-.dark body .p-dialog .p-select.p-component,
-.dark body .p-dialog .p-dropdown.p-component,
-.dark .p-dialog .p-select,
-.dark .p-dialog .p-dropdown,
-.dark .p-dialog .p-select.p-component,
-.dark .p-dialog .p-dropdown.p-component,
-.dark .p-dialog.p-component .p-select,
-.dark .p-dialog.p-component .p-dropdown,
-.dark .p-dialog.p-component .p-select.p-component,
-.dark .p-dialog.p-component .p-dropdown.p-component {
-  background: #374151 !important;
-  background-color: #374151 !important;
-  border: 1px solid #4b5563 !important;
-  color: #f9fafb !important;
-}
-
-.dark body .p-dialog .p-select .p-select-label,
-.dark body .p-dialog .p-dropdown .p-dropdown-label,
-.dark .p-dialog .p-select .p-select-label,
-.dark .p-dialog .p-dropdown .p-dropdown-label,
-.dark .p-dialog.p-component .p-select .p-select-label,
-.dark .p-dialog.p-component .p-dropdown .p-dropdown-label {
-  color: #f9fafb !important;
-}
-
-.dark body .p-dialog .p-select .p-select-label.p-placeholder,
-.dark body .p-dialog .p-dropdown .p-dropdown-label.p-placeholder,
-.dark .p-dialog .p-select .p-select-label.p-placeholder,
-.dark .p-dialog .p-dropdown .p-dropdown-label.p-placeholder,
-.dark .p-dialog.p-component .p-select .p-select-label.p-placeholder,
-.dark .p-dialog.p-component .p-dropdown .p-dropdown-label.p-placeholder {
-  color: #9ca3af !important;
-}
-
-.dark .p-select-panel.p-component,
-.dark .p-dropdown-panel.p-component,
-.dark .p-select-panel,
-.dark .p-dropdown-panel {
-  background: #374151 !important;
-  background-color: #374151 !important;
-  border: 1px solid #4b5563 !important;
-}
-
-.dark .p-select-option,
-.dark .p-dropdown-item {
-  color: #f9fafb !important;
-}
-
-.dark .p-select-option:hover,
-.dark .p-dropdown-item:hover {
-  background: #4b5563 !important;
-  color: #f9fafb !important;
-}
-
-.dark body .p-dialog label,
-.dark .p-dialog label,
-.dark .p-dialog.p-component label {
-  color: #d1d5db !important;
-}
-
-/* Enhanced PrimeVue component styling */
+/* Enhanced Button Styling - LIGHT MODE ONLY */
 .p-button {
-  @apply transition-all duration-200 font-medium shadow-sm hover:shadow-md;
+  @apply border-2 font-medium bg-transparent hover:bg-gray-50;
 }
 
-.p-button.p-button-success {
-  @apply bg-gradient-to-r from-emerald-500 to-emerald-600 border-0 hover:from-emerald-600 hover:to-emerald-700 shadow-lg hover:shadow-xl;
-}
-
-.p-button.p-button-outlined {
-  @apply border-2 font-medium bg-transparent hover:bg-gray-50 dark:hover:bg-gray-700/50;
-}
-
-.p-button.p-button-text {
-  @apply hover:bg-gray-100 dark:hover:bg-gray-700/50;
+.p-button-text {
+  @apply hover:bg-gray-100;
 }
 
 .p-inputtext {
-  @apply transition-all duration-200 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100;
+  @apply transition-all duration-200 bg-white border-gray-300 text-gray-900;
 }
 
-.p-inputtext:focus {
-  @apply border-emerald-400 dark:border-emerald-500 shadow-lg shadow-emerald-100/50 dark:shadow-emerald-900/20;
+.p-inputtext:not(.p-disabled).p-focus {
+  @apply border-emerald-400 shadow-lg shadow-emerald-100/50;
 }
 
 .p-dropdown {
-  @apply bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100;
+  @apply bg-white border-gray-300 text-gray-900;
 }
 
 .p-dropdown:not(.p-disabled).p-focus {
-  @apply border-emerald-400 dark:border-emerald-500 shadow-lg shadow-emerald-100/50 dark:shadow-emerald-900/20;
+  @apply border-emerald-400 shadow-lg shadow-emerald-100/50;
 }
 
 .p-dropdown-panel {
-  @apply bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 shadow-xl;
+  @apply bg-white border-gray-300 shadow-xl;
 }
 
 .p-dropdown-item {
-  @apply text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-600;
+  @apply text-gray-900 hover:bg-gray-100;
 }
 
 .p-select {
-  @apply bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100;
+  @apply bg-white border-gray-300 text-gray-900;
 }
 
 .p-select:not(.p-disabled).p-focus {
-  @apply border-emerald-400 dark:border-emerald-500 shadow-lg shadow-emerald-100/50 dark:shadow-emerald-900/20;
+  @apply border-emerald-400 shadow-lg shadow-emerald-100/50;
 }
 
 .p-select-panel {
-  @apply bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 shadow-xl;
+  @apply bg-white border-gray-300 shadow-xl;
 }
 
 .p-select-option {
-  @apply text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-600;
+  @apply text-gray-900 hover:bg-gray-100;
 }
 
-/* Enhanced DataTable Styling for Light Mode */
+/* Enhanced DataTable Styling - LIGHT MODE ONLY */
 .p-datatable {
-  @apply bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden;
+  @apply bg-white border border-gray-200 rounded-xl overflow-hidden;
 }
 
 .p-datatable .p-datatable-header {
-  @apply bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100;
+  @apply bg-gray-50 border-b border-gray-200 text-gray-900;
 }
 
 .p-datatable .p-datatable-thead > tr > th {
-  @apply bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-200 font-semibold;
+  @apply bg-gray-50 border-b border-gray-200 text-gray-900 font-semibold;
 }
 
 .p-datatable .p-datatable-tbody > tr {
-  @apply bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700;
+  @apply bg-white border-b border-gray-100 text-gray-900 hover:bg-gray-50;
 }
 
 .p-datatable .p-datatable-tbody > tr:nth-child(even) {
   @apply bg-gray-50/50;
 }
 
-.dark .p-datatable .p-datatable-tbody > tr:nth-child(even) {
-  background-color: #374151;
-}
-
 .p-datatable .p-datatable-tbody > tr > td {
-  @apply border-b border-gray-100 dark:border-gray-700 text-gray-900 dark:text-gray-100;
+  @apply border-b border-gray-100 text-gray-900;
 }
 
 .p-datatable .p-datatable-footer {
-  @apply bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100;
+  @apply bg-gray-50 border-t border-gray-200 text-gray-900;
 }
 
-/* Enhanced Paginator Styling */
+/* Enhanced Paginator Styling - LIGHT MODE ONLY */
 .p-paginator {
-  @apply bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700;
+  @apply bg-white border-t border-gray-200;
 }
 
 .p-paginator .p-paginator-pages .p-paginator-page {
-  @apply text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600;
+  @apply text-gray-700 hover:bg-gray-100 border border-gray-200;
 }
 
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
-  @apply bg-emerald-500 dark:bg-emerald-600 text-white border-emerald-500 dark:border-emerald-600;
+  @apply bg-emerald-500 text-white border-emerald-500;
 }
 
 .p-paginator .p-dropdown {
-  @apply bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100;
+  @apply bg-white border-gray-200 text-gray-900;
 }
 
 .p-card {
-  @apply shadow-sm dark:shadow-xl border border-gray-100 dark:border-gray-700 rounded-2xl bg-white dark:bg-gray-800;
+  @apply shadow-sm border border-gray-100 rounded-2xl bg-white;
 }
 
 .p-badge {
-  @apply bg-emerald-500 dark:bg-emerald-600 font-semibold;
+  @apply bg-emerald-500 font-semibold;
 }
 
 .p-toast .p-toast-message.p-toast-message-success {
-  @apply bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700 text-emerald-800 dark:text-emerald-200;
+  @apply bg-emerald-50 border-emerald-200 text-emerald-800;
 }
 
 .p-toast .p-toast-message.p-toast-message-error {
-  @apply bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700 text-red-800 dark:text-red-200;
+  @apply bg-red-50 border-red-200 text-red-800;
 }
 
 .p-toast .p-toast-message.p-toast-message-warn {
-  @apply bg-yellow-50 dark:bg-yellow-900/30 border-yellow-200 dark:border-yellow-700 text-yellow-800 dark:text-yellow-200;
+  @apply bg-yellow-50 border-yellow-200 text-yellow-800;
 }
 
 .p-toast .p-toast-message.p-toast-message-info {
-  @apply bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-200;
+  @apply bg-blue-50 border-blue-200 text-blue-800;
 }
 
 .p-overlaypanel {
-  @apply rounded-2xl border-0 shadow-2xl bg-white dark:bg-gray-800;
+  @apply rounded-2xl border-0 shadow-2xl bg-white;
 }
 
-/* Enhanced scrollbar */
+/* Enhanced scrollbar - LIGHT MODE ONLY */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -542,28 +243,16 @@ body .p-dialog label,
   background: #f1f5f9;
 }
 
-.dark ::-webkit-scrollbar-track {
-  background: #374151;
-}
-
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 4px;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #6b7280;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
-}
-
 /* Custom focus styles */
 .p-focus {
-  @apply ring-2 ring-emerald-500 ring-offset-2 dark:ring-offset-gray-800;
+  @apply ring-2 ring-emerald-500 ring-offset-2;
 }

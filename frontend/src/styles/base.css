@@ -1,0 +1,49 @@
+/* ===== BASE STYLES ===== */
+:root {
+  /* CSS Variables untuk konsistensi warna */
+  --color-primary: #059669;
+  --color-primary-light: #10b981;
+  --color-primary-dark: #047857;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-900: #111827;
+  
+  /* Typography */
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  /* Performance optimizations */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global transitions - Lebih spesifik untuk performa */
+* {
+  transition-property: background-color, border-color, color, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+body {
+  @apply font-sans antialiased bg-gray-50 text-gray-900 m-0;
+  min-height: 100vh;
+}
+
+#app {
+  @apply h-screen m-0 p-0;
+  max-width: none;
+  text-align: left;
+}
+
+/* Scrollbar Hidden */
+.scrollbar-none {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE dan Edge */
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

@@ -1,16 +1,16 @@
 <template>
-  <div class="dashboard-container bg-gray-50 dark:bg-gray-900 min-h-full transition-colors duration-300">
+  <div class="dashboard-container bg-gray-50 min-h-full transition-colors duration-300">
     <!-- Header Section dengan Fixed Refresh Button -->
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm dark:shadow-xl border border-gray-100 dark:border-gray-700 p-4 lg:p-6 mb-6 transition-all duration-300">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6 mb-6 transition-all duration-300">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div class="flex-1">
-          <h1 class="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent mb-2">
+          <h1 class="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">
             Dashboard HRD
           </h1>
-          <p class="text-gray-600 dark:text-gray-300 text-sm lg:text-base transition-colors duration-300">
+          <p class="text-gray-600 text-sm lg:text-base transition-colors duration-300">
             Selamat datang, {{ authStore.user?.username || 'Admin' }}! Kelola data karyawan dengan mudah.
           </p>
-          <p v-if="lastLoadTime" class="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors duration-300">
+          <p v-if="lastLoadTime" class="text-xs text-gray-500 mt-1 transition-colors duration-300">
             Terakhir diperbarui: {{ new Date(lastLoadTime).toLocaleString('id-ID') }}
           </p>
         </div>
@@ -21,14 +21,14 @@
             @click="refreshData" 
             :loading="isLoading"
             :disabled="isLoading"
-            class="refresh-button p-button-outlined border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-400 hover:border-emerald-400 dark:hover:border-emerald-500 hover:text-emerald-800 dark:hover:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all duration-200 font-medium shadow-sm hover:shadow-md h-10 px-4 flex items-center justify-center"
+            class="refresh-button p-button-outlined border-emerald-300 text-emerald-700 hover:border-emerald-400 hover:text-emerald-800 hover:bg-emerald-50 transition-all duration-200 font-medium shadow-sm hover:shadow-md h-10 px-4 flex items-center justify-center"
           >
             <i :class="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'" class="text-sm mr-2"></i>
             <span class="text-sm">{{ isLoading ? 'Memuat...' : 'Refresh Data' }}</span>
           </Button>
           <Button 
             @click="exportData" 
-            class="bg-gradient-to-r from-emerald-500 to-emerald-600 dark:from-emerald-600 dark:to-emerald-700 hover:from-emerald-600 hover:to-emerald-700 dark:hover:from-emerald-500 dark:hover:to-emerald-600 text-white border-0 shadow-lg hover:shadow-xl dark:shadow-emerald-900/20 transition-all duration-200 font-medium h-10 px-4 text-sm"
+            class="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200 font-medium h-10 px-4 text-sm"
           >
             <i class="pi pi-download text-sm mr-2"></i>
             <span class="text-sm">Export CSV</span>
@@ -42,10 +42,10 @@
       <div 
         v-for="(stat, index) in stats" 
         :key="index"
-        class="relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-md dark:shadow-xl border border-gray-100 dark:border-gray-700 p-4 lg:p-6 hover:shadow-lg dark:hover:shadow-2xl hover:border-emerald-200 dark:hover:border-emerald-700 transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02] group cursor-pointer"
+        class="relative overflow-hidden bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-md border border-gray-100 p-4 lg:p-6 hover:shadow-lg hover:border-emerald-200 transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02] group cursor-pointer"
       >
         <!-- Background Pattern dengan Ukuran yang Disesuaikan -->
-        <div class="absolute -top-2 -right-2 w-16 h-16 lg:w-20 lg:h-20 opacity-8 dark:opacity-15 transition-all duration-300 group-hover:opacity-15 dark:group-hover:opacity-25 group-hover:scale-105">
+        <div class="absolute -top-2 -right-2 w-16 h-16 lg:w-20 lg:h-20 opacity-8 transition-all duration-300 group-hover:opacity-15 group-hover:scale-105">
           <div class="w-full h-full rounded-full bg-gradient-to-br" :class="stat.gradientClass"></div>
         </div>
         
@@ -65,8 +65,8 @@
             <span 
               class="text-xs font-bold px-2.5 py-1 rounded-full transition-all duration-300 flex items-center gap-1"
               :class="stat.change.startsWith('+') 
-                ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/50' 
-                : 'text-red-700 dark:text-red-300 bg-red-100 dark:bg-red-900/50'"
+                ? 'text-emerald-700 bg-emerald-100' 
+                : 'text-red-700 bg-red-100'"
             >
               <i :class="stat.change.startsWith('+') ? 'pi pi-trending-up' : 'pi pi-trending-down'" class="text-xs"></i>
               {{ stat.change }}
@@ -75,11 +75,11 @@
           
           <!-- Main Content dengan Spacing yang Diperbaiki -->
           <div class="space-y-1">
-            <p class="text-xs lg:text-sm font-semibold text-gray-600 dark:text-gray-400 transition-colors duration-300 uppercase tracking-wide">{{ stat.title }}</p>
-            <p class="text-2xl lg:text-3xl xl:text-4xl font-black text-gray-900 dark:text-gray-100 transition-colors duration-300 mb-1">{{ stat.value }}</p>
+            <p class="text-xs lg:text-sm font-semibold text-gray-600 transition-colors duration-300 uppercase tracking-wide">{{ stat.title }}</p>
+            <p class="text-2xl lg:text-3xl xl:text-4xl font-black text-gray-900 transition-colors duration-300 mb-1">{{ stat.value }}</p>
             <div class="flex items-center gap-1.5">
               <div class="w-1.5 h-1.5 rounded-full" :class="stat.change.startsWith('+') ? 'bg-emerald-500' : 'bg-red-500'"></div>
-              <p class="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300">vs bulan lalu</p>
+              <p class="text-xs text-gray-500 transition-colors duration-300">vs bulan lalu</p>
             </div>
           </div>
         </div>
@@ -94,11 +94,11 @@
     <!-- Charts and Activities Row dengan Spacing yang Diperbaiki -->
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 lg:gap-6 mb-6">
       <!-- Chart Section -->
-      <div class="xl:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-md dark:shadow-xl border border-gray-100 dark:border-gray-700 p-4 lg:p-6 transition-all duration-300">
+      <div class="xl:col-span-2 bg-white rounded-2xl shadow-md border border-gray-100 p-4 lg:p-6 transition-all duration-300">
         <div class="flex items-center justify-between mb-6">
           <div>
-            <h3 class="text-lg lg:text-xl font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">Statistik Karyawan</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Tren pertumbuhan {{ selectedPeriod.label.toLowerCase() }}</p>
+            <h3 class="text-lg lg:text-xl font-bold text-gray-900 transition-colors duration-300">Statistik Karyawan</h3>
+            <p class="text-sm text-gray-500 mt-1">Tren pertumbuhan {{ selectedPeriod.label.toLowerCase() }}</p>
           </div>
           <Select 
             v-model="selectedPeriod" 
@@ -117,17 +117,17 @@
               <div class="flex items-center space-x-3">
                 <div class="w-3 h-3 rounded-full shadow-sm" :class="getChartColor(index)"></div>
                 <div>
-                  <span class="text-sm font-semibold text-gray-700 dark:text-gray-300 transition-colors duration-300">{{ item.name }}</span>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">{{ getMonthYear(item.name) }}</p>
+                  <span class="text-sm font-semibold text-gray-700 transition-colors duration-300">{{ item.name }}</span>
+                  <p class="text-xs text-gray-500">{{ getMonthYear(item.name) }}</p>
                 </div>
               </div>
               <div class="text-right">
-                <span class="text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">{{ item.value }}</span>
-                <p class="text-xs text-gray-500 dark:text-gray-400">karyawan</p>
+                <span class="text-lg font-bold text-gray-900 transition-colors duration-300">{{ item.value }}</span>
+                <p class="text-xs text-gray-500">karyawan</p>
               </div>
             </div>
             <div class="relative">
-              <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-3 transition-colors duration-300 overflow-hidden shadow-inner">
+              <div class="bg-gray-200 rounded-full h-3 transition-colors duration-300 overflow-hidden shadow-inner">
                 <div 
                   class="h-3 rounded-full transition-all duration-1000 ease-out relative overflow-hidden shadow-sm"
                   :class="getChartGradient(index)"
@@ -141,32 +141,32 @@
         </div>
         
         <!-- Chart Summary dengan Spacing yang Diperbaiki -->
-        <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <div class="mt-6 pt-4 border-t border-gray-200">
           <div class="grid grid-cols-3 gap-3 lg:gap-4 text-center">
-            <div class="p-3 lg:p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-              <p class="text-xl lg:text-2xl xl:text-3xl font-black text-gray-900 dark:text-gray-100">{{ chartData.reduce((sum, item) => sum + item.value, 0) }}</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wide">Total</p>
+            <div class="p-3 lg:p-4 bg-gray-50 rounded-xl">
+              <p class="text-xl lg:text-2xl xl:text-3xl font-black text-gray-900">{{ chartData.reduce((sum, item) => sum + item.value, 0) }}</p>
+              <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Total</p>
             </div>
-            <div class="p-3 lg:p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
-              <p class="text-xl lg:text-2xl xl:text-3xl font-black text-emerald-600 dark:text-emerald-400">{{ Math.max(...chartData.map(d => d.value)) }}</p>
-              <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wide">Tertinggi</p>
+            <div class="p-3 lg:p-4 bg-emerald-50 rounded-xl">
+              <p class="text-xl lg:text-2xl xl:text-3xl font-black text-emerald-600">{{ Math.max(...chartData.map(d => d.value)) }}</p>
+              <p class="text-xs text-emerald-600 font-semibold uppercase tracking-wide">Tertinggi</p>
             </div>
-            <div class="p-3 lg:p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
-              <p class="text-xl lg:text-2xl xl:text-3xl font-black text-blue-600 dark:text-blue-400">{{ Math.round(chartData.reduce((sum, item) => sum + item.value, 0) / chartData.length) }}</p>
-              <p class="text-xs text-blue-600 dark:text-blue-400 font-semibold uppercase tracking-wide">Rata-rata</p>
+            <div class="p-3 lg:p-4 bg-blue-50 rounded-xl">
+              <p class="text-xl lg:text-2xl xl:text-3xl font-black text-blue-600">{{ Math.round(chartData.reduce((sum, item) => sum + item.value, 0) / chartData.length) }}</p>
+              <p class="text-xs text-blue-600 font-semibold uppercase tracking-wide">Rata-rata</p>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Recent Activities dengan Icon Spacing yang Diperbaiki -->
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-md dark:shadow-xl border border-gray-100 dark:border-gray-700 p-4 lg:p-6 transition-all duration-300">
+      <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-4 lg:p-6 transition-all duration-300">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300">Aktivitas Terbaru</h3>
+          <h3 class="text-lg font-bold text-gray-900 transition-colors duration-300">Aktivitas Terbaru</h3>
           <Button 
             @click="viewAllActivities" 
             icon="pi pi-list" 
-            class="p-button-text p-button-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all duration-200 rounded-lg w-8 h-8 p-0"
+            class="p-button-text p-button-sm text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 transition-all duration-200 rounded-lg w-8 h-8 p-0"
           />
         </div>
         
@@ -174,7 +174,7 @@
           <div 
             v-for="activity in recentActivities" 
             :key="activity.id"
-            class="flex items-start space-x-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all duration-200 group cursor-pointer border border-transparent hover:border-gray-200 dark:hover:border-gray-600"
+            class="flex items-start space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-all duration-200 group cursor-pointer border border-transparent hover:border-gray-200"
           >
             <div 
               class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-200 group-hover:scale-105 shadow-sm"
@@ -183,9 +183,9 @@
               <i :class="activity.icon" class="text-sm"></i>
             </div>
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 transition-colors duration-300 truncate">{{ activity.name }}</p>
-              <p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5 transition-colors duration-300 line-clamp-2">{{ activity.activity }}</p>
-              <p class="text-xs text-gray-500 dark:text-gray-500 mt-1 transition-colors duration-300 flex items-center gap-1">
+              <p class="text-sm font-semibold text-gray-900 transition-colors duration-300 truncate">{{ activity.name }}</p>
+              <p class="text-xs text-gray-600 mt-0.5 transition-colors duration-300 line-clamp-2">{{ activity.activity }}</p>
+              <p class="text-xs text-gray-500 mt-1 transition-colors duration-300 flex items-center gap-1">
                 <i class="pi pi-clock text-xs"></i>
                 {{ activity.time }}
               </p>
@@ -194,35 +194,30 @@
         </div>
         
         <!-- View All Button dengan Icon yang Diperbaiki -->
-        <div class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
-          <!-- Alternatif ikon untuk "Lihat Semua Aktivitas" -->
+        <div class="mt-4 pt-3 border-t border-gray-200">
           <Button 
             @click="viewAllActivities"
-            class="p-button-outlined w-full border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-emerald-300 dark:hover:border-emerald-600 hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all duration-200 rounded-lg font-medium text-sm h-9"
+            class="p-button-outlined w-full border-gray-200 text-gray-700 hover:border-emerald-300 hover:text-emerald-700 hover:bg-emerald-50 transition-all duration-200 rounded-lg font-medium text-sm h-9"
           >
-            <span class="text-sm">Lihat Semua Aktivitas</span>
-            <!-- Pilihan ikon: -->
-            <i class="pi pi-arrow-right text-sm ml-2"></i>  <!-- Panah kanan -->
-            <!-- <i class="pi pi-external-link text-sm ml-2"></i>  Link eksternal -->
-            <!-- <i class="pi pi-list text-sm ml-2"></i>  List/daftar -->
-            <!-- <i class="pi pi-angle-right text-sm ml-2"></i>  Chevron kanan -->
+            <i class="pi pi-external-link text-xs mr-2"></i>
+            Lihat Semua Aktivitas
           </Button>
         </div>
       </div>
     </div>
 
-    <!-- Quick Actions dengan Spacing dan Icon yang Diperbaiki -->
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-md dark:shadow-xl border border-gray-100 dark:border-gray-700 p-4 lg:p-6 transition-all duration-300">
-      <h3 class="text-lg lg:text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 lg:mb-6 transition-colors duration-300">Aksi Cepat</h3>
+    <!-- Quick Actions dengan Spacing yang Diperbaiki -->
+    <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-4 lg:p-6 transition-all duration-300">
+      <h3 class="text-lg lg:text-xl font-bold text-gray-900 mb-4 lg:mb-6 transition-colors duration-300">Aksi Cepat</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4">
-        <Button
-          v-for="action in quickActions"
+        <Button 
+          v-for="action in quickActions" 
           :key="action.title"
           @click="action.action"
-          class="p-button-outlined border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-emerald-300 dark:hover:border-emerald-600 hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex flex-col items-center justify-center p-4 h-24 lg:h-28 rounded-xl transition-all duration-200 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-lg group"
+          class="p-button-outlined border-gray-200 text-gray-700 hover:border-emerald-300 hover:text-emerald-700 hover:bg-emerald-50 flex flex-col items-center justify-center p-4 h-24 lg:h-28 rounded-xl transition-all duration-200 hover:-translate-y-1 hover:shadow-md group"
         >
-          <i :class="action.icon" class="text-2xl lg:text-3xl mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-all duration-200 group-hover:scale-110"></i>
-          <span class="text-xs lg:text-sm font-semibold text-center leading-tight">{{ action.title }}</span>
+          <i :class="action.icon" class="text-2xl lg:text-3xl mb-2 group-hover:text-emerald-600 transition-all duration-200 group-hover:scale-110"></i>
+          <span class="text-xs lg:text-sm font-medium text-center leading-tight">{{ action.title }}</span>
         </Button>
       </div>
     </div>

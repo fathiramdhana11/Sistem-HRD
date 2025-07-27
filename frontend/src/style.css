@@ -1,106 +1,91 @@
-/* Import custom PrimeVue + Tailwind integration */
+/* Import yang lebih terorganisir */
 @import './styles/primevue-tailwind.css';
+@import './styles/base.css';
+@import './styles/components.css';
+@import './styles/utilities.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Enhanced dark mode transitions */
+/* Enhanced Table Styling - LIGHT MODE ONLY */
+.p-datatable {
+  @apply bg-white border-gray-200;
+}
+
+.p-datatable .p-datatable-header {
+  @apply bg-gray-50 border-gray-200 text-gray-900;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  @apply bg-gray-50 border-gray-200 text-gray-900;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  @apply bg-white border-gray-100 text-gray-900;
+}
+
+.p-datatable .p-datatable-tbody > tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+  @apply bg-gray-50;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  @apply border-gray-100 text-gray-900;
+}
+
+/* PrimeVue Overrides */
+.p-button .p-button-icon {
+  margin-right: 0.5rem !important;
+}
+
+.p-button[data-pc-section="root"] .p-button-icon:last-child {
+  margin-right: 0;
+  margin-left: 0.5rem !important;
+}
+
+.p-button .p-button-label + .p-button-icon {
+  margin-left: 0.5rem !important;
+  margin-right: 0;
+}
+
+.p-button-outlined .p-button-icon {
+  margin-left: 0.5rem !important;
+}
+
+/* Enhanced transitions */
 * {
   transition-property: background-color, border-color, color, box-shadow;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }
 
-/* Custom scrollbar for dark mode */
+/* Scrollbar Styling - LIGHT MODE ONLY */
 ::-webkit-scrollbar {
-  width: 8px;
+  @apply w-2;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-800;
+  @apply bg-gray-100;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  @apply bg-gray-300 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-400 dark:bg-gray-500;
+  @apply bg-gray-400;
 }
 
-/* Enhanced Table Styling - HANYA untuk DataTable, bukan Dialog */
-.dark .p-datatable {
-  @apply bg-gray-800 border-gray-700;
-}
-
-.dark .p-datatable .p-datatable-header {
-  @apply bg-gray-800 border-gray-700 text-gray-100;
-}
-
-.dark .p-datatable .p-datatable-thead > tr > th {
-  @apply bg-gray-700 border-gray-600 text-gray-200;
-}
-
-.dark .p-datatable .p-datatable-tbody > tr {
-  @apply bg-gray-800 border-gray-700 text-gray-100;
-}
-
-.dark .p-datatable .p-datatable-tbody > tr:nth-child(even) {
-  background-color: #374151; /* Custom gray-750 color */
-}
-
-.dark .p-datatable .p-datatable-tbody > tr:hover {
-  @apply bg-gray-700;
-}
-
-.dark .p-datatable .p-datatable-tbody > tr > td {
-  @apply border-gray-700 text-gray-100;
-}
-
-.dark .p-datatable .p-datatable-footer {
-  @apply bg-gray-800 border-gray-700 text-gray-100;
-}
-
-.dark .p-paginator {
-  @apply bg-gray-800 border-gray-700;
-}
-
-.dark .p-paginator .p-paginator-pages .p-paginator-page {
-  @apply text-gray-300 hover:bg-gray-700;
-}
-
-.dark .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
-  @apply bg-emerald-600 text-white;
-}
-
-.dark .p-paginator .p-dropdown {
-  @apply bg-gray-700 border-gray-600 text-gray-100;
-}
-
-/* Enhanced Card Styling */
-.dark .p-card {
-  @apply bg-gray-800 border-gray-700 shadow-xl;
-}
-
-.dark .p-card .p-card-header {
-  @apply bg-gray-800 border-gray-700 text-gray-100;
-}
-
-.dark .p-card .p-card-body {
-  @apply bg-gray-800 text-gray-100;
-}
-
-.dark .p-card .p-card-footer {
-  @apply bg-gray-800 border-gray-700 text-gray-100;
-}
-
-/* Base styles with dark mode support */
+/* Base styles - LIGHT MODE ONLY */
 :root {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light dark;
+  color-scheme: light;
   color: #213547;
   background-color: #ffffff;
   font-synthesis: none;
@@ -109,13 +94,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.dark:root {
-  color: #e5e7eb;
-  background-color: #111827;
-}
-
 body {
-  @apply font-sans antialiased bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  @apply font-sans antialiased bg-gray-50 text-gray-900;
   margin: 0;
   min-height: 100vh;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -129,17 +109,102 @@ body {
   text-align: left;
 }
 
-/* Enhanced component styles */
+/* Enhanced component styles - LIGHT MODE ONLY */
 .card {
-  @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-xl border border-gray-200 dark:border-gray-700 p-6 transition-all duration-300 hover:shadow-md dark:hover:shadow-2xl;
+  @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6 transition-all duration-300 hover:shadow-md;
 }
 
 .btn-primary {
-  @apply bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 shadow-lg hover:shadow-xl;
+  @apply bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 shadow-lg hover:shadow-xl;
 }
 
 .btn-secondary {
-  @apply bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 shadow-lg hover:shadow-xl;
+  @apply bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-lg hover:shadow-xl;
+}
+
+/* Layout styles - LIGHT MODE ONLY */
+.layout-container {
+  @apply min-h-screen bg-gray-50 transition-colors duration-300;
+}
+
+.layout-sidebar {
+  @apply w-64 bg-white shadow-lg border-r border-gray-200 transition-colors duration-300;
+}
+
+.layout-main {
+  @apply flex-1 p-6 ml-64 bg-gray-50 transition-colors duration-300;
+}
+
+/* Dialog styles - LIGHT MODE ONLY */
+.p-dialog {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  position: relative;
+  margin: 1rem;
+}
+
+.p-dialog-header {
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.p-dialog-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.p-dialog-content {
+  padding: 0;
+  overflow-y: auto;
+}
+
+.p-dialog-footer {
+  padding: 0;
+}
+
+.p-dialog-header-close {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+}
+
+.p-dialog-header-close:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+/* Input Text Styling - LIGHT MODE ONLY */
+.p-inputtext {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: white;
+  color: #111827;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.p-inputtext:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 /* Enhanced animation utilities */
@@ -154,7 +219,7 @@ body {
   transform: translateY(10px);
 }
 
-/* Enhanced links */
+/* Enhanced links - LIGHT MODE ONLY */
 a {
   font-weight: 500;
   color: #10b981;
@@ -166,15 +231,7 @@ a:hover {
   color: #059669;
 }
 
-.dark a {
-  color: #34d399;
-}
-
-.dark a:hover {
-  color: #10b981;
-}
-
-/* Enhanced buttons */
+/* Enhanced buttons - LIGHT MODE ONLY */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -193,33 +250,23 @@ button:hover {
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
 }
 
-.dark button {
-  background-color: #374151;
-  color: #e5e7eb;
-}
-
-.dark button:hover {
-  background-color: #4b5563;
-  border-color: #34d399;
-}
-
 button:focus,
 button:focus-visible {
   outline: 2px solid #10b981;
   outline-offset: 2px;
 }
 
-/* Enhanced layout utilities */
+/* Enhanced layout utilities - LIGHT MODE ONLY */
 .dashboard-container {
-  @apply min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300;
+  @apply min-h-screen bg-gray-50 transition-colors duration-300;
 }
 
 .sidebar {
-  @apply w-64 bg-white dark:bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700 transition-colors duration-300;
+  @apply w-64 bg-white shadow-lg border-r border-gray-200 transition-colors duration-300;
 }
 
 .main-content {
-  @apply flex-1 p-6 ml-64 bg-gray-50 dark:bg-gray-900 transition-colors duration-300;
+  @apply flex-1 p-6 ml-64 bg-gray-50 transition-colors duration-300;
 }
 
 /* Custom gradient utilities */

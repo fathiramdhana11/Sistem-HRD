@@ -3,25 +3,11 @@ module.exports = {
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
-  // darkMode: 'class', // Hapus atau comment baris ini
-  theme: {
-    extend: {
-      // Your existing theme extensions
-    },
-  },
-  plugins: [],
-}
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-  ],
   theme: {
     extend: {
       // Custom colors yang kompatibel dengan PrimeVue
       colors: {
         'prime-blue': '#3B82F6',
-        'prime-blue-dark': '#1E40AF',
         'prime-surface': '#FFFFFF',
         'prime-text': '#495057',
       }
